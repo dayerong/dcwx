@@ -68,8 +68,8 @@ def Emperror(empid):
 
 
 def Pingsuccess(ip):
-    return "【%s】Successful ping!" % ip
+    return "【%s】Ping successful!" % ip
 
 
 def Pingfailed(ip):
-    return "【%s】Unuccessful ping!" % ip
+    return "【%s】Ping failed!" % ip
