@@ -34,6 +34,6 @@
 ![image](https://github.com/dayerong/dcwx/blob/master/png-7.png?raw=true)
 
 
-- 可以结合ansible开发一些自动化功能。。。
+- 可以结合ansible开发一些自动化功能，待补充。
 
 ---
