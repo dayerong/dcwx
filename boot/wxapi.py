@@ -28,7 +28,7 @@ class WXapi:
         timestamp = data.timestamp
         nonce = data.nonce
         echostr = data.echostr
-        token = "daphnemko1qa"
+        token = "xxxxxx"    #你的token
         list = [token, timestamp, nonce]
         list.sort()
         sha1 = hashlib.sha1()
