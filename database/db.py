@@ -12,7 +12,7 @@ config = {
     'host': 'localhost',
     'port': 3306,
     'user': 'root',
-    'passwd': 'Daphne@1234',
+    'passwd': 'abc1234',
     'db': 'cmdb',
     'charset': 'utf8'
 }
