@@ -12,7 +12,7 @@ config = {
     'host': 'localhost',
     'port': 3306,
     'user': 'root',
-    'passwd': 'abc1234',
+    'passwd': 'passwd@1234',
     'db': 'cmdb',
     'charset': 'utf8'
 }
@@ -192,6 +192,24 @@ def checkadmin(empid):
         conn = MySQLdb.connect(**config)
         cursor = conn.cursor()
         sql = "select admin from auth where empid = \'%s\'" % empid
+        cursor.execute(sql)
+        rows = int(cursor.rowcount)
+        if rows == 0:
+            return 'None'
+        else:
+            for i in range(rows):
+                row = cursor.fetchone()
+                return row
+    finally:
+        cursor.close()
+        conn.close()
+
+
+def checkuserisadmin(touser):
+    try:
+        conn = MySQLdb.connect(**config)
+        cursor = conn.cursor()
+        sql = "select toUser from auth,touser where auth.empid=touser.empid and admin=1 and touser=\'%s\';" % touser
         cursor.execute(sql)
         rows = int(cursor.rowcount)
         if rows == 0:

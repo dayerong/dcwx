@@ -21,7 +21,9 @@ def Mainmenu():
     主机房:1，测试机房:2，网络机房:3，小机房:4
 
 ■  【ping测试】
-     例：ping 192.168.0.12"""
+     例：ping 192.168.0.12
+
+■  查看管理员功能，输入【admin】"""
 
 
 def Helpmenu():
@@ -44,15 +46,17 @@ def Reporterror():
     return "指令格式错误！输入【help】查看功能帮助。"
 
 
-def Addemp():
-    return """
-■  添加用户指令：
-    【adduser+空格+新建工号+空格+密码+空格+管理员工号+空格+密码】
-    例如：【adduser 123456 password 1001 admin】"""
+def Adminmenu():
+    return """管理员权限指令：
+■  添加用户
+    【adduser+空格+新建工号+空格+密码】
+    例：【adduser 10001 password】
 
+■  重启ShadowSocks服务
+    【restart vpn】
 
-def Adminfailed():
-    return "创建失败！请确认管理员账号与密码！"
+■  查询ShadowSocks进程
+    【check vpn】"""
 
 
 def Adminhelp():
@@ -73,3 +77,16 @@ def Pingsuccess(ip):
 
 def Pingfailed(ip):
     return "【%s】Ping failed!" % ip
+
+
+def RestartSSVPN():
+    return "shadowsocks已重启！"
+
+
+def ChecktSSVPN(status):
+    return """shadowsocks进程状态：
+%s""" % status
+
+
+def IsNotAdmin():
+    return "非管理员，无权限操作！"

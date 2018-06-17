@@ -13,6 +13,7 @@ import sys
 sys.path.append("..")
 import database.db as db
 import system.ping as ping
+import system.ss_vpn as ssvpn
 
 
 class WXapi:
@@ -66,6 +67,7 @@ class WXapi:
                     return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Authcheck())
             else:
                 try:
+                    # 普通用户功能权限
                     if content.lower() == 'help':
                         return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Mainmenu())
                     elif content.lower()[0:2] == 'sn' and content.lower()[2] == ' ':
@@ -74,8 +76,6 @@ class WXapi:
                     elif content.lower()[0:2] == 'ip' and content.lower()[2] == ' ':
                         ip = content.lower()[2:].strip().upper()
                         return self.render.reply_text(fromUser, toUser, int(time.time()), db.queryip(ip))
-                    elif content.lower() == 'admin':
-                        return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Addemp())
                     elif content.lower()[0:2] == 'wz' and content.lower()[2] == ' ':
                         lc = content.lower()[2:].strip().upper()
                         return self.render.reply_text(fromUser, toUser, int(time.time()), db.querylocation(lc))
@@ -86,27 +86,42 @@ class WXapi:
                             return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Pingsuccess(ip))
                         else:
                             return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Pingfailed(ip))
-                    elif content.lower()[0:7] == 'adduser':
-                        if len(content.split(' ')) == 5:
-                            adminid = content.split(' ')[-2]
-                            adminpass = content.split(' ')[-1]
-                            hashadminpass = auth.md5(adminpass)
-                            passwdindb = db.getpasswd(adminid)[0]
-                            newempid = content.split(' ')[1]
-                            newemppass = content.split(' ')[2]
-                            hashnewemppass = auth.md5(newemppass)
-                            if db.checkadmin(adminid)[0] == 1 and hashadminpass == passwdindb:
-                                if db.getempid(newempid):
-                                    return self.render.reply_text(fromUser, toUser, int(time.time()),
-                                                                  menu.Emperror(newempid))
-                                else:
-                                    db.addemp(newempid, hashnewemppass)
-                                    return self.render.reply_text(fromUser, toUser, int(time.time()),
-                                                                  menu.Adminsuccess(newempid))
-                            else:
-                                return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Adminfailed())
+                    # 管理员功能权限
+                    elif content.lower() == 'admin':
+                        if db.checkuserisadmin(fromUser)[0] == fromUser:
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Adminmenu())
                         else:
-                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Adminhelp())
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.IsNotAdmin())
+                    elif content.lower() == 'restart vpn' and content.lower()[7] == ' ' and len(content) == 11:
+                        if db.checkuserisadmin(fromUser)[0] == fromUser:
+                            status = ssvpn.restart_ss()
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.RestartSSVPN())
+                        else:
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.IsNotAdmin())
+                    elif content.lower() == 'check vpn' and content.lower()[5] == ' ' and len(content) == 9:
+                        if db.checkuserisadmin(fromUser)[0] == fromUser:
+                            status = ssvpn.check_ss()
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.ChecktSSVPN(status))
+                        else:
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.IsNotAdmin())
+                    elif content.lower()[0:7] == 'adduser':
+                        if db.checkuserisadmin(fromUser)[0] == fromUser:
+                            try:
+                                if content.lower()[7] == ' ' and len(content.split(' ')) == 3:
+                                    newempid = content.split(' ')[1]
+                                    newemppass = content.split(' ')[2]
+                                    hashnewemppass = auth.md5(newemppass)
+                                    if db.getempid(newempid):
+                                        return self.render.reply_text(fromUser, toUser, int(time.time()),
+                                                                      menu.Emperror(newempid))
+                                    else:
+                                        db.addemp(newempid, hashnewemppass)
+                                        return self.render.reply_text(fromUser, toUser, int(time.time()),
+                                                                      menu.Adminsuccess(newempid))
+                            except:
+                                return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Adminhelp())
+                        else:
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.IsNotAdmin())
                     else:
                         return self.render.reply_text(fromUser, toUser, int(time.time()), menu.Helpmenu())
                 except IndexError:
