@@ -30,9 +30,9 @@
 ```
 
 ![image](https://github.com/dayerong/dcwx/blob/master/screenshots/png-8.png?raw=true)
+![image](https://github.com/dayerong/dcwx/blob/master/screenshots/png-12.png?raw=true)
 
 ```
-![image](https://github.com/dayerong/dcwx/blob/master/screenshots/png-12.png?raw=true)
 
 管理员权限的用户可以使用更高权限的指令，比如重启服务等。
 
