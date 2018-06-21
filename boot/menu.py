@@ -9,21 +9,25 @@ sys.setdefaultencoding('utf-8')
 
 def Mainmenu():
     return """请选择（输入忽略大小写）：
-■  按【SN】查询，输入【sn+空格+序列号】
-    例：sn 06WXN36
+■  按【SN】查询
+    例：【sn 06WXN36】
 
-■  按【IP】查询，输入【ip+空格+序列号】
-    例：ip 192.168.0.12
+■  按【IP】查询
+    例：【ip 192.168.0.12】
 
-■  按【机柜位置】查询，输入【wz+空格+位置号】
-    例：wz 1-22-24-24
+■  按【机柜位置】查询
+    例：【wz 1-22-24-24】
     表示‘机房编号-机柜号-U位置(下)-U位置(上)’
     主机房:1，测试机房:2，网络机房:3，小机房:4
 
 ■  【ping测试】
-     例：ping 192.168.0.12
+     例：【ping 192.168.0.12】
 
-■  查看管理员功能，输入【admin】"""
+■  【端口测试】
+     例：【tcping 192.168.0.12 80】
+
+■  管理员入口
+   【admin】"""
 
 
 def Helpmenu():
@@ -51,6 +55,12 @@ def Adminmenu():
 ■  添加用户
     【adduser+空格+新建工号+空格+密码】
     例：【adduser 10001 password】
+
+■  查看用户
+    【show user】
+
+■  查看管理员
+    【show admin】
 
 ■  重启ShadowSocks服务
     【restart vpn】
