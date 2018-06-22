@@ -5,11 +5,14 @@ import socket
 
 
 def portcheck(ip, port):
-    sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     try:
+        socket.setdefaulttimeout(2)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         rs = sock.connect_ex((ip, int(port)))
-        return "【%s:%s】 Port is open!" % (ip, port)
+        if rs == 0:
+            return "【%s:%s】 Port is open!" % (ip, port)
+        else:
+            return "【%s:%s】 Port is down!" % (ip, port)
     except:
-        return "【%s:%s】 Port is down!" % (ip, port)
-    finally:
-        sock.close()
+        return "【%s】 IP is unreachable! " % ip
+    sock.close()
