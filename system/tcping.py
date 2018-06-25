@@ -11,8 +11,10 @@ def portcheck(ip, port):
         rs = sock.connect_ex((ip, int(port)))
         if rs == 0:
             return "【%s:%s】 Port is open!" % (ip, port)
-        else:
+        elif rs == 111:
             return "【%s:%s】 Port is down!" % (ip, port)
+        elif rs == 11:
+            return "【%s】 IP is unreachable! " % ip
     except:
-        return "【%s】 IP is unreachable! " % ip
+        return "【%s】 Name or service not known! " % ip
     sock.close()
