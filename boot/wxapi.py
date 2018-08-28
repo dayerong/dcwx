@@ -109,6 +109,22 @@ class WXapi:
                             return self.render.reply_text(fromUser, toUser, int(time.time()), menu.ChecktSSVPN(status))
                         else:
                             return self.render.reply_text(fromUser, toUser, int(time.time()), menu.IsNotAdmin())
+                    elif content.lower()[0:10] == 'restart vm' and content.lower()[7] == ' ' and len(
+                            content.split()) == 3:
+                        if db.checkuserisadmin(fromUser)[0] == fromUser:
+                            ip = content.split()[2]
+                            halt_reboot.reboot_vm(ip)
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.RestartVM(ip))
+                        else:
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.IsNotAdmin())
+                    elif content.lower()[0:7] == 'halt vm' and content.lower()[4] == ' ' and len(
+                            content.split()) == 3:
+                        if db.checkuserisadmin(fromUser)[0] == fromUser:
+                            ip = content.split()[2]
+                            halt_reboot.shutdown_vm(ip)
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.HaltVM(ip))
+                        else:
+                            return self.render.reply_text(fromUser, toUser, int(time.time()), menu.IsNotAdmin())
                     elif content.lower()[0:7] == 'adduser':
                         if db.checkuserisadmin(fromUser)[0] == fromUser:
                             try:

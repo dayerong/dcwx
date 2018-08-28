@@ -66,7 +66,13 @@ def Adminmenu():
     【restart vpn】
 
 ■  查询ShadowSocks进程
-    【check vpn】"""
+    【check vpn】
+
+■  重启服务器系统
+    【restart vm 192.168.0.12】
+
+■  关闭服务器系统
+    【halt vm 192.168.0.12】"""
 
 
 def Adminhelp():
@@ -96,6 +102,14 @@ def RestartSSVPN():
 def ChecktSSVPN(status):
     return """shadowsocks进程状态：
 %s""" % status
+
+
+def RestartVM(ip):
+    return "【%s】正在重启！" % ip
+
+
+def HaltVM(ip):
+    return "【%s】正在关闭！" % ip
 
 
 def IsNotAdmin():
