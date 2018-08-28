@@ -50,6 +50,12 @@
 
 
 
-- 上面是个简单例子，还可以结合ansible开发一些自动化功能。
+- 还可以结合ansible开发一些自动化功能。
+
+
+```
+调用ansible服务器发出指令重启关闭系统。
+```
+![image](https://github.com/dayerong/dcwx/blob/master/screenshots/png-12.png?raw=true)
 
 ---
