@@ -56,6 +56,6 @@
 ```
 调用ansible服务器发出指令重启关闭系统。
 ```
-![image](https://github.com/dayerong/dcwx/blob/master/screenshots/png-12.png?raw=true)
+![image](https://github.com/dayerong/dcwx/blob/master/screenshots/png-13.png?raw=true)
 
 ---
